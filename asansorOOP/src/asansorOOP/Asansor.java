@@ -24,7 +24,6 @@ public class Asansor implements IAsansor {
 		this.inenler = new ArrayList<>();
 	}
 
-	//kilo kontrol fonksiyonu yazılabilirr
 	
 	
 	
@@ -43,15 +42,15 @@ public class Asansor implements IAsansor {
 
 	@Override
 	public void goUp(int gidilecekKat) {
-
-		if (kapiAcikMi == false) {
-			kapiDurum();
-			System.out.println("Yukarı çıkılıyor");
-			while (guncelKat < gidilecekKat) {
-				guncelKat++;
-				System.out.println("Kat: " + guncelKat);
-			}
-		}
+	    if (kapiAcikMi == false) {
+	        kapiDurum();
+	        System.out.println("Yukarı çıkılıyor");
+	        while (guncelKat < gidilecekKat) {
+	            guncelKat++;
+	            System.out.println("Kat: " + guncelKat);
+	        }
+	        kapiDurum();
+	    }
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class Asansor implements IAsansor {
 
 	@Override
 	public void asansorBilgi() {
-		kapiDurum();// düzeltilecekk!!!!!
+		kapiDurum();
 		if (!kisiler.isEmpty())
 			System.out.println("Asansörün Bulunduğu Kat : " + guncelKat);
 		System.out.println("kilo " + guncelAgirlik);
@@ -77,9 +76,15 @@ public class Asansor implements IAsansor {
 
 	@Override
 	public void kisiBin(Person person) {
-		kisiler.add(person);
-		guncelAgirlik += person.getKilo();
+	    if (guncelAgirlik + person.getKilo() <= maxAgirlik) {
+	        kisiler.add(person);
+	        guncelAgirlik += person.getKilo();
+
+	    } else {
+	        System.out.println("Ağırlık limiti aşıldığı için asansöre alınamadı.");
+	    }
 	}
+
 
 	@Override
 	public void kisiIn() {
